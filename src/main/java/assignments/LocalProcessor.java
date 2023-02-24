@@ -46,11 +46,12 @@ public class LocalProcessor {
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(List<String> stringList) {
-        StringBuilder stringBuilder = new StringBuilder(processorName + " ");
+        StringBuilder stringBuilder = new StringBuilder();
         for (String s : LocalProcessor.stringArrayList) {
             stringBuilder.append(s);
             stringBuilder.append(" ");
         }
+        stringBuilder.append(processorVersion);
         processorName = stringBuilder.toString();
         return processorName;
     }
