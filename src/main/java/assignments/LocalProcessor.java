@@ -36,21 +36,18 @@ public class LocalProcessor {
 
     @ListIteratorAnnotation
     public void listIterator(List<String> stringList) {
-        stringArrayList = new LinkedList<>(stringList);
-        for (String s : stringArrayList) {
-            if (s == null) {
-                throw new IllegalStateException();
+        LocalProcessor.stringArrayList = new LinkedList<>(stringList);
+        for (String s : LocalProcessor.stringArrayList) {
+            if (s != null) {
+                System.out.println(s.hashCode());
             }
-            System.out.println(s.hashCode());
         }
     }
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(List<String> stringList) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(processorName);
-        stringBuilder.append(" ");
-        for (String s : stringList) {
+        StringBuilder stringBuilder = new StringBuilder(processorName + " ");
+        for (String s : LocalProcessor.stringArrayList) {
             stringBuilder.append(s);
             stringBuilder.append(" ");
         }
@@ -68,7 +65,11 @@ public class LocalProcessor {
                 stringBuilder.append(informationScanner.nextLine());
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        } finally {
+            if (informationScanner != null) {
+                informationScanner.close();
+            }
         }
 
 
